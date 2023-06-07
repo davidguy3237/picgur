@@ -21,24 +21,38 @@ export default function Card({ post }) {
       setClickedLike('like');
       setLikesCount(likesCount + 1);
       setDislikesCount(dislikesCount - 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        likes: likesCount + 1,
+        dislikes: dislikesCount - 1,
+      });
+
     } else if (clickedLike === '') {
       setClickedLike('like');
       setLikesCount(likesCount + 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        likes: likesCount + 1,
+      });
     }
   }
   const handleDislike = () => {
-    if (clickedLike !== 'dislike') {
-      console.log('THIS IS A DISLIKE');
-      setDislikesCount(dislikesCount + 1);
-      setClickedLike('dislike');
-    }
     if (clickedLike === 'like') {
       setClickedLike('dislike');
       setDislikesCount(dislikesCount + 1);
       setLikesCount(likesCount - 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        likes: likesCount - 1,
+        dislikes: dislikesCount + 1,
+      });
     } else if (clickedLike === '') {
       setClickedLike('dislike');
       setDislikesCount(dislikesCount + 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        dislikes: dislikesCount + 1,
+      });
     }
   }
 
