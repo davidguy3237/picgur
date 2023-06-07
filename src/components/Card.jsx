@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown, faEye, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faXmark, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 const { useState, useEffect } = React;
 
@@ -89,25 +89,25 @@ export default function Card({ post }) {
           />
         </button>
       </div>
-      <div className="my-2">
+      <div className="my-2 text-xl">
         {title}
       </div>
       <div className="my-2 flex justify-around w-full">
         <div className="flex items-center">
           <button onClick={handleLike}>
-            <FontAwesomeIcon icon={faThumbsUp} className={`mr-2 hover:text-sky-600 ${clickedLike === 'like' ? 'text-sky-600' : ''}`} />
+            <FontAwesomeIcon icon={faArrowUp} className={`mr-2 hover:text-sky-600 ${clickedLike === 'like' ? 'text-sky-600' : ''}`} size="xl" />
           </button>
-          <span className="mr-2">{likesCount}</span>
+          <span className="text-lg">{likesCount}</span>
         </div>
         <div className="flex items-center">
           <button onClick={handleDislike}>
-            <FontAwesomeIcon icon={faThumbsDown} className={`mr-2 hover:text-red-600 ${clickedLike === 'dislike' ? 'text-red-600' : ''}`} />
+            <FontAwesomeIcon icon={faArrowDown} className={`mr-2 hover:text-red-600 ${clickedLike === 'dislike' ? 'text-red-600' : ''}`} size="xl" />
           </button>
-          <span>{dislikesCount}</span>
+          <span className="text-lg">{dislikesCount}</span>
         </div>
         <div className="flex items-center">
-          <FontAwesomeIcon icon={faEye} className="mr-2"/>
-          <div>{viewCount}</div>
+          <FontAwesomeIcon icon={faEye} className="mr-2" size="xl"/>
+          <div className="text-lg">{viewCount}</div>
         </div>
       </div>
       {
@@ -115,7 +115,7 @@ export default function Card({ post }) {
         ? (
           <div id="photo-modal" onClick={closeExpandedPhoto} className="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-black/50">
             <button type="button" onClick={() => setExpandPhoto(false)} className="text-white absolute top-3 right-4 cursor-pointer border-none bg-none text-6xl">
-              &times;
+              <FontAwesomeIcon icon={faXmark} />
             </button>
             <img
               src={url}
