@@ -1,13 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
 
 export default function Search({ updatePosts }) {
   const [search, setSearch] = useState('');
+  const hasRendered = useRef(false);
   let searchTimeout = null;
 
   useEffect(() => {
-    searchTimeout = setTimeout(() => updatePosts(search), 500);
+    if (hasRendered.current) {
+      searchTimeout = setTimeout(() => updatePosts(search), 500);
+    } else {
+      hasRendered.current = true;
+    }
     return () => clearTimeout(searchTimeout)
   }, [search])
 

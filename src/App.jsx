@@ -18,9 +18,9 @@ function App() {
       .then(({ data }) => setPosts(data));
   }
 
-  // useEffect(() => {
-  //   updatePosts();
-  // }, [])
+  useEffect(() => {
+    updatePosts();
+  }, [])
 
   const toggleModal = (state) => {
     setShowModal(state);
