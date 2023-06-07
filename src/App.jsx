@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import axios from 'axios';
+import React from 'react';
+const { useState, useEffect } = React;
+import UploadButton from './components/UploadButton';
+import CardList from './components/CardList';
+import UploadPhotoModal from './components/UploadPhotoModal';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posts, setPosts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const updatePosts = () => {
+    axios
+      .get('http://localhost:3000/api/posts')
+      .then(({ data }) => setPosts(data));
+  }
+
+  useEffect(() => {
+    updatePosts();
+  }, [])
+
+  const toggleModal = (state) => {
+    setShowModal(state);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="bg-slate-500">Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div id="App" className="text-slate-100 container flex flex-col items-center max-w-[90%] mx-auto">
+      {showModal ? <UploadPhotoModal toggleModal={toggleModal} updatePosts={updatePosts} /> : null}
+      <nav className="m-5">
+        <UploadButton toggleModal={toggleModal} />
+      </nav>
+      {posts.length > 0 ? <CardList posts={posts} /> : null}
+    </div>
   )
 }
 
