@@ -10,6 +10,7 @@ export default function Card({ post }) {
   const [dislikesCount, setDislikesCount] = useState(dislikes);
   const [clickedLike, setClickedLike] = useState('');
   const [viewCount, setViewCount] = useState(views);
+  const [expandPhoto, setExpandPhoto] = useState(false);
 
   useEffect(() => {
     setViewCount(oldView => oldView + 1);
@@ -42,7 +43,8 @@ export default function Card({ post }) {
         likes: likesCount - 1,
       });
     }
-  }
+  };
+
   const handleDislike = () => {
     if (clickedLike === 'like') {
       setClickedLike('dislike');
@@ -68,16 +70,24 @@ export default function Card({ post }) {
         dislikes: dislikesCount - 1,
       });
     }
+  };
+
+  const closeExpandedPhoto = (e) => {
+    if (e.target.id === 'photo-modal') {
+      setExpandPhoto(false);
+    }
   }
 
   return (
     <div className="flex flex-col items-center rounded-lg overflow-hidden bg-neutral-700 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] max-h-[600px] max-w-[400px] m-2 relative">
       <div className="flex items-center justify-center relative w-full h-[90%]">
-        <img
-          src={url}
-          alt=''
-          className="w-full h-auto"
-        />
+        <button onClick={() => setExpandPhoto(true)}>
+          <img
+            src={url}
+            alt=''
+            className="w-full h-auto"
+          />
+        </button>
       </div>
       <div className="my-2">
         {title}
@@ -100,6 +110,21 @@ export default function Card({ post }) {
           <div>{viewCount}</div>
         </div>
       </div>
+      {
+        expandPhoto
+        ? (
+          <div id="photo-modal" onClick={closeExpandedPhoto} className="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-black/50">
+            <button type="button" onClick={() => setExpandPhoto(false)} className="text-white absolute top-3 right-4 cursor-pointer border-none bg-none text-6xl">
+              &times;
+            </button>
+            <img
+              src={url}
+              alt=''
+              className="max-w-[75vw] max-h-[90vh]"
+            />
+          </div>
+        ) : null
+      }
     </div>
-  )
+  );
 }
