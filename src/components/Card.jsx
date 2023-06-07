@@ -34,6 +34,13 @@ export default function Card({ post }) {
         id,
         likes: likesCount + 1,
       });
+    } else if (clickedLike === 'like') {
+      setClickedLike('');
+      setLikesCount(likesCount - 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        likes: likesCount - 1,
+      });
     }
   }
   const handleDislike = () => {
@@ -53,6 +60,13 @@ export default function Card({ post }) {
         id,
         dislikes: dislikesCount + 1,
       });
+    } else if (clickedLike === 'dislike') {
+      setClickedLike('');
+      setDislikesCount(dislikesCount - 1);
+      axios.put('http://localhost:3000/api/likes', {
+        id,
+        dislikes: dislikesCount - 1,
+      });
     }
   }
 
@@ -71,13 +85,13 @@ export default function Card({ post }) {
       <div className="my-2 flex justify-around w-full">
         <div className="flex items-center">
           <button onClick={handleLike}>
-            <FontAwesomeIcon icon={faThumbsUp} className="mr-2" />
+            <FontAwesomeIcon icon={faThumbsUp} className={`mr-2 hover:text-sky-600 ${clickedLike === 'like' ? 'text-sky-600' : ''}`} />
           </button>
           <span className="mr-2">{likesCount}</span>
         </div>
         <div className="flex items-center">
           <button onClick={handleDislike}>
-            <FontAwesomeIcon icon={faThumbsDown} className="mr-2" />
+            <FontAwesomeIcon icon={faThumbsDown} className={`mr-2 hover:text-red-600 ${clickedLike === 'dislike' ? 'text-red-600' : ''}`} />
           </button>
           <span>{dislikesCount}</span>
         </div>
