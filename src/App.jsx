@@ -12,7 +12,7 @@ function App() {
 
   const updatePosts = (search = '') => {
     axios
-      .get(import.meta.env.VITE_API_UPLOAD_URL, {
+      .get(import.meta.env.VITE_API_POSTS_URL, {
         params: { search },
       })
       .then(({ data }) => setPosts(data));

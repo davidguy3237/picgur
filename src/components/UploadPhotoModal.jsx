@@ -19,7 +19,7 @@ export default function UploadPhotoModal({ toggleModal, updatePosts }) {
       formData.append('tags[]', tag);
     })
     axios
-      .post('http://localhost:3000/api/upload', formData)
+      .post(import.meta.env.VITE_API_UPLOAD_URL, formData)
       .then(() => updatePosts())
       .then(() => toggleModal(false));
   }
