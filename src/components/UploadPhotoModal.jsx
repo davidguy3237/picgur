@@ -45,7 +45,7 @@ export default function UploadPhotoModal({ toggleModal, updatePosts }) {
     <div
       id="photo-upload-modal"
       onClick={exitModal}
-      className="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-black/50" >
+      className="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-black/90" >
       <div
         id="photo-upload-modal-content"
         className="bg-slate-800 p-4 w-1/3 h-3/4 flex justify-center items-center rounded-lg">
@@ -56,7 +56,7 @@ export default function UploadPhotoModal({ toggleModal, updatePosts }) {
             preview
             ? <img src={preview} alt='' loading="lazy" className='m-10 max-h-[70%] max-w-full' />
             : <DragDropFile handleFile={handleFile} />
-          }cd
+          }
           <input
             type="text"
             id="inputTitle"

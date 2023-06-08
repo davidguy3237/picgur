@@ -12,7 +12,7 @@ function App() {
 
   const updatePosts = (search = '') => {
     axios
-      .get('http://localhost:3000/api/posts', {
+      .get(import.meta.env.VITE_API_UPLOAD_URL, {
         params: { search },
       })
       .then(({ data }) => setPosts(data));
@@ -28,7 +28,7 @@ function App() {
 
   const filterPostsByTag = (tag) => {
     axios
-      .get('http://localhost:3000/api/posts-by-tag', {
+      .get(import.meta.env.VITE_API_POSTS_BY_TAG_URL, {
         params: { tag }
       })
       .then(({ data }) => setPosts(data));

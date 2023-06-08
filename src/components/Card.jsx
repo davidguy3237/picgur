@@ -19,8 +19,8 @@ export default function Card({ post, filterPostsByTag }) {
 
   useEffect(() => {
     setViewCount(oldView => oldView + 1);
-    axios.put('http://localhost:3000/api/views', { id });
-    axios.get('http://localhost:3000/api/tags', {
+    axios.put(import.meta.env.VITE_API_VIEWS_URL, { id });
+    axios.get(import.meta.env.VITE_API_TAGS_URL, {
       params: { id },
     })
       .then(({ data }) => setTags(data));
@@ -31,7 +31,7 @@ export default function Card({ post, filterPostsByTag }) {
       setClickedLike('like');
       setLikesCount(likesCount + 1);
       setDislikesCount(dislikesCount - 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         likes: likesCount + 1,
         dislikes: dislikesCount - 1,
@@ -40,14 +40,14 @@ export default function Card({ post, filterPostsByTag }) {
     } else if (clickedLike === '') {
       setClickedLike('like');
       setLikesCount(likesCount + 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         likes: likesCount + 1,
       });
     } else if (clickedLike === 'like') {
       setClickedLike('');
       setLikesCount(likesCount - 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         likes: likesCount - 1,
       });
@@ -59,7 +59,7 @@ export default function Card({ post, filterPostsByTag }) {
       setClickedLike('dislike');
       setDislikesCount(dislikesCount + 1);
       setLikesCount(likesCount - 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         likes: likesCount - 1,
         dislikes: dislikesCount + 1,
@@ -67,14 +67,14 @@ export default function Card({ post, filterPostsByTag }) {
     } else if (clickedLike === '') {
       setClickedLike('dislike');
       setDislikesCount(dislikesCount + 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         dislikes: dislikesCount + 1,
       });
     } else if (clickedLike === 'dislike') {
       setClickedLike('');
       setDislikesCount(dislikesCount - 1);
-      axios.put('http://localhost:3000/api/likes', {
+      axios.put(import.meta.env.VITE_API_LIKES_URL, {
         id,
         dislikes: dislikesCount - 1,
       });
