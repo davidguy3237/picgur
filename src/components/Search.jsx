@@ -1,22 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-const { useState, useEffect, useRef } = React;
-
-export default function Search({ updatePosts }) {
-  const [search, setSearch] = useState('');
-  const hasRendered = useRef(false);
-  let searchTimeout = null;
-
-  useEffect(() => {
-    if (hasRendered.current) {
-      searchTimeout = setTimeout(() => updatePosts(search), 500);
-    } else {
-      hasRendered.current = true;
-    }
-    return () => clearTimeout(searchTimeout)
-  }, [search])
+export default function Search({ updateSearch }) {
 
   return(
-    <input type="search" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} className="mr-10 h-8 p-1 border-2 border-sky-600 bg-[#121212] focus:border-sky-500 focus:outline-none"/>
+    <input
+      type="search"
+      placeholder="Search..."
+      onChange={(e) => updateSearch(e.target.value)}
+      className="text-lg mr-10 h-12 w-[400px] px-3 border-2 border-sky-600 bg-[#121212] focus:border-sky-400 focus:outline-none"/>
   )
 }
