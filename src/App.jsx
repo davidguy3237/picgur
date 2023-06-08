@@ -26,6 +26,14 @@ function App() {
     setShowModal(state);
   }
 
+  const filterPostsByTag = (tag) => {
+    axios
+      .get('http://localhost:3000/api/posts-by-tag', {
+        params: { tag }
+      })
+      .then(({ data }) => setPosts(data));
+  }
+
   return (
     <div id="App" className="text-slate-100 container flex flex-col items-center max-w-[90%] mx-auto">
       {showModal ? <UploadPhotoModal toggleModal={toggleModal} updatePosts={updatePosts} /> : null}
@@ -33,7 +41,7 @@ function App() {
         <Search updatePosts={updatePosts} />
         <UploadButton toggleModal={toggleModal} />
       </nav>
-      {posts.length > 0 ? <CardList posts={posts} /> : null}
+      {posts.length > 0 ? <CardList posts={posts} filterPostsByTag={filterPostsByTag} /> : null}
     </div>
   )
 }

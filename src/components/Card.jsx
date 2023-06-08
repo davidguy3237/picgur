@@ -3,18 +3,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faXmark, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 const { useState, useEffect } = React;
+import TagsDisplay from './TagsDisplay';
 
-export default function Card({ post }) {
+export default function Card({ post, filterPostsByTag }) {
   const { id, title, url, likes, dislikes, views } = post;
   const [likesCount, setLikesCount] = useState(likes);
   const [dislikesCount, setDislikesCount] = useState(dislikes);
   const [clickedLike, setClickedLike] = useState('');
   const [viewCount, setViewCount] = useState(views);
   const [expandPhoto, setExpandPhoto] = useState(false);
+  const [tags, setTags] = useState(null);
+
+  const transformation = 'w_400,f_auto,q_auto/';
+  const thumbnail = url.substring(0, 50) + transformation + url.substring(50);
 
   useEffect(() => {
     setViewCount(oldView => oldView + 1);
     axios.put('http://localhost:3000/api/views', { id });
+    axios.get('http://localhost:3000/api/tags', {
+      params: { id },
+    })
+      .then(({ data }) => setTags(data));
   }, [id]);
 
   const handleLike = () => {
@@ -83,15 +92,16 @@ export default function Card({ post }) {
       <div className="flex items-center justify-center relative w-full h-[90%]">
         <button onClick={() => setExpandPhoto(true)}>
           <img
-            src={url}
+            src={thumbnail}
             alt=''
-            className="w-full h-auto"
+            className="w-[400] h-auto"
           />
         </button>
       </div>
       <div className="my-2 text-xl">
         {title}
       </div>
+      <TagsDisplay tags={tags} filterPostsByTag={filterPostsByTag} />
       <div className="my-2 flex justify-around w-full">
         <div className="flex items-center">
           <button onClick={handleLike}>
