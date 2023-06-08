@@ -26,11 +26,11 @@ export default function DragDropFile({ handleFile }) {
   return (
     <div
       onDragEnter={handleDrag}
-      className="w-[90%] h-3/4 border-dashed border-2 border-sky-600 rounded-lg relative">
+      className="w-full h-full mt-5 border-dashed border-2 border-slate-500 rounded-lg relative">
       <input ref={inputRef} type="file" id="photo-upload" required hidden onChange={(e) => handleFile(e.target.files[0])}/>
       <label
         htmlFor="photo-upload"
-        className={`w-full h-full flex items-center justify-center ${dragActive ? 'bg-sky-600/50' : ''}`}>
+        className={`w-full h-full flex items-center justify-center ${dragActive ? 'bg-slate-700' : ''}`}>
         <div className="flex flex-col justify-center items-center text-3xl">
           <p className="m-4">Drag and drop your file here or</p>
           <button type="button" className="cursor-pointer p-1 underline" onClick={() => inputRef.current.click()}>Upload a file</button>

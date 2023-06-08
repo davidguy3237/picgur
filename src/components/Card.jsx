@@ -95,13 +95,13 @@ export default function Card({ post }) {
       <div className="my-2 flex justify-around w-full">
         <div className="flex items-center">
           <button onClick={handleLike}>
-            <FontAwesomeIcon icon={faArrowUp} className={`mr-2 hover:text-sky-600 ${clickedLike === 'like' ? 'text-sky-600' : ''}`} size="xl" />
+            <FontAwesomeIcon icon={faArrowUp} className={`mr-2 hover:text-sky-400 ${clickedLike === 'like' ? 'text-sky-600' : ''}`} size="xl" />
           </button>
           <span className="text-lg">{likesCount}</span>
         </div>
         <div className="flex items-center">
           <button onClick={handleDislike}>
-            <FontAwesomeIcon icon={faArrowDown} className={`mr-2 hover:text-red-600 ${clickedLike === 'dislike' ? 'text-red-600' : ''}`} size="xl" />
+            <FontAwesomeIcon icon={faArrowDown} className={`mr-2 hover:text-red-400 ${clickedLike === 'dislike' ? 'text-red-600' : ''}`} size="xl" />
           </button>
           <span className="text-lg">{dislikesCount}</span>
         </div>
